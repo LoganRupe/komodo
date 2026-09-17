@@ -761,11 +761,13 @@ fn resolve_deploy_if_changed_action(
     // The cases that genuinely need a full pass still get one without any
     // special handling: compose and env files are registered with an empty
     // `services` array, so they land in the `(Redeploy, true)` arm below.
-    let changed =
-      match deployed_contents.iter().find(|c| c.path == latest.path) {
-        Some(deployed) => latest.contents != deployed.contents,
-        None => true,
-      };
+    let changed = match deployed_contents
+      .iter()
+      .find(|c| c.path == latest.path)
+    {
+      Some(deployed) => latest.contents != deployed.contents,
+      None => true,
+    };
     if !changed {
       continue;
     }
